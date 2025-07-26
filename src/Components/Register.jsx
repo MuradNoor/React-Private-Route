@@ -1,16 +1,32 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "./AuthProvider";
 
 
 const Register = () => {
+
+    const {createUser} = useContext(AuthContext);
 
     const handleRegister = e => {
         e.preventDefault()
         const email = e.target.email.value;
         const password = e.target.password.value;
         const name = e.target.name.value;
+
+        //create user in firebase
+        createUser(email, password)
+        .then(result => {
+          console.log(result.user)
+        })
+        .catch(error => {
+          console.log(error.message)
+        })
         console.log(name, email, password)
     }
     
+    
+    // console.log(authInfo);
+
     return (
                 <div className="hero bg-base-200">
   <div className="hero-content flex-col ">
